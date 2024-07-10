@@ -22,23 +22,23 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
-    private static final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
 
     private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
 
     protected final PropertyDelegate propertyDelegate;
-    private static int progress = 0;
-    private static int maxProgress = 72;
+    private int progress = 0;
+    private int maxProgress = 72;
 
     public SmelteryBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.SMELTERY, pos, state);
+        super(ModBlockEntities.SMELTERY_BLOCK_ENTITY, pos, state);
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
                 return switch (index) {
-                    case 0 -> progress;
-                    case 1 -> maxProgress;
+                    case 0 -> SmelteryBlockEntity.this.progress;
+                    case 1 -> SmelteryBlockEntity.this.maxProgress;
                     default -> 0;
                 };
             }
@@ -46,8 +46,8 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
             @Override
             public void set(int index, int value) {
                 switch (index) {
-                    case 0 -> progress = value;
-                    case 1 -> maxProgress = value;
+                    case 0 -> SmelteryBlockEntity.this.progress = value;
+                    case 1 -> SmelteryBlockEntity.this.maxProgress = value;
                 }
             }
 
@@ -60,18 +60,12 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
 
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(pos);
+        buf.writeBlockPos(this.pos);
     }
 
     @Override
     public Text getDisplayName() {
-        return Text.literal("Smeltery");
-    }
-
-    @Nullable
-    @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new SmelteryScreenHandler(syncId, playerInventory, this, propertyDelegate);
+        return Text.literal("Gem Polishing Station");
     }
 
     @Override
@@ -83,14 +77,20 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt, inventory);
-        nbt.putInt("smeltery.progress", progress);
+        nbt.putInt("gem_polishing_station.progress", progress);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt, inventory);
-        progress = nbt.getInt("smeltery.progress");
+        progress = nbt.getInt("gem_polishing_station.progress");
+    }
+
+    @Nullable
+    @Override
+    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+        return new SmelteryScreenHandler(syncId, playerInventory, this, this.propertyDelegate);
     }
 
     public void tick(World world, BlockPos pos, BlockState state) {
@@ -117,7 +117,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
     }
 
     private void resetProgress() {
-        progress = 0;
+        this.progress = 0;
     }
 
     private void craftItem() {
@@ -127,7 +127,7 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
         this.setStack(OUTPUT_SLOT, new ItemStack(result.getItem(), getStack(OUTPUT_SLOT).getCount() + result.getCount()));
     }
 
-    private static boolean hasCraftingFinished() {
+    private boolean hasCraftingFinished() {
         return progress >= maxProgress;
     }
 
@@ -154,4 +154,3 @@ public class SmelteryBlockEntity extends BlockEntity implements ExtendedScreenHa
         return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
     }
 }
-

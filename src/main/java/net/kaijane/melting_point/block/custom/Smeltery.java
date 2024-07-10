@@ -1,7 +1,7 @@
 package net.kaijane.melting_point.block.custom;
 
-import net.kaijane.melting_point.block.entity.ModBlockEntities;
 import net.kaijane.melting_point.block.entity.SmelteryBlockEntity;
+import net.kaijane.melting_point.block.entity.ModBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -14,13 +14,12 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class Smeltery extends BlockWithEntity implements BlockEntityProvider {
-    private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 12,16);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 12, 16);
 
     public Smeltery(Settings settings) {
         super(settings);
@@ -47,8 +46,8 @@ public class Smeltery extends BlockWithEntity implements BlockEntityProvider {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (blockEntity instanceof SmelteryBlockEntity) {
-                ItemScatterer.spawn(world, pos, (SmelteryBlockEntity) blockEntity);
-                world.updateComparators(pos, this);
+                ItemScatterer.spawn(world, pos, (SmelteryBlockEntity)blockEntity);
+                world.updateComparators(pos,this);
             }
             super.onStateReplaced(state, world, pos, newState, moved);
         }
@@ -63,13 +62,14 @@ public class Smeltery extends BlockWithEntity implements BlockEntityProvider {
                 player.openHandledScreen(screenHandlerFactory);
             }
         }
+
         return ActionResult.SUCCESS;
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.SMELTERY,
+        return checkType(type, ModBlockEntities.SMELTERY_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> {
                     if (blockEntity instanceof SmelteryBlockEntity) {
                         ((SmelteryBlockEntity) blockEntity).tick(world1, pos, state1);

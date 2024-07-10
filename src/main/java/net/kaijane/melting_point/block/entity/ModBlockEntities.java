@@ -9,7 +9,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModBlockEntities {
-    public static final BlockEntityType<SmelteryBlockEntity> SMELTERY =
+    public static final BlockEntityType<SmelteryBlockEntity> SMELTERY_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MeltingPoint.MOD_ID, "smeltery_be"),
                     FabricBlockEntityTypeBuilder.create(SmelteryBlockEntity::new, ModBlocks.SMELTERY).build());
 
