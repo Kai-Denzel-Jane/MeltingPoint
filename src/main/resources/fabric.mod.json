@@ -26,9 +26,6 @@
 			"net.kaijane.melting_point.MeltingPointDataGenerator"
 		]
 	},
-	"mixins": [
-		"melting_point.mixins.json"
-	],
 	"depends": {
 		"fabricloader": ">=0.15.11",
 		"minecraft": "~1.20.1",

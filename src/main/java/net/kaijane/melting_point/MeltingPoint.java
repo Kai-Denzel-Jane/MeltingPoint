@@ -21,7 +21,6 @@ public class MeltingPoint implements ModInitializer {
 		ModBlockEntities.registerModBlockEntities();
 		ModScreenHandlers.registerScreenHandlers();
 
-
 		LOGGER.info(MOD_ID + " initialized");
 	}
 }

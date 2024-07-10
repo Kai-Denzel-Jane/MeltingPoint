@@ -16,7 +16,7 @@ public class ModBlocks {
     // Register Blocks
 
     public static final Block SMELTERY = registerBlock("smeltery",
-            new Smeltery(FabricBlockSettings.copyOf(Blocks.STONE)));
+            new Smeltery(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque()));
 
 
     // Block register methods
