@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "melting_point:block/smeltery"
+    }
+  }
+}
