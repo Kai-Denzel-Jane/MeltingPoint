@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 
 import net.kaijane.melting_point.block.ModBlocks;
 import net.kaijane.melting_point.block.entity.ModBlockEntities;
+import net.kaijane.melting_point.recipe.ModRecipes;
 import net.kaijane.melting_point.screen.ModScreenHandlers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ public class MeltingPoint implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModBlockEntities.registerModBlockEntities();
 		ModScreenHandlers.registerScreenHandlers();
+		ModRecipes.registerRecipes();
 
 		LOGGER.info(MOD_ID + " initialized");
 	}

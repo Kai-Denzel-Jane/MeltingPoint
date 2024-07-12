@@ -1,7 +1,60 @@
 {
   "variants": {
-    "": {
-      "model": "melting_point:block/smeltery"
+    "facing=north,lit=false": {
+      "model": "melting_point:block/smeltery",
+      "y": 0,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_off"
+      }
+    },
+    "facing=north,lit=true": {
+      "model": "melting_point:block/smeltery",
+      "y": 0,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_on"
+      }
+    },
+    "facing=south,lit=false": {
+      "model": "melting_point:block/smeltery",
+      "y": 180,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_off"
+      }
+    },
+    "facing=south,lit=true": {
+      "model": "melting_point:block/smeltery",
+      "y": 180,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_on"
+      }
+    },
+    "facing=west,lit=false": {
+      "model": "melting_point:block/smeltery",
+      "y": 270,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_off"
+      }
+    },
+    "facing=west,lit=true": {
+      "model": "melting_point:block/smeltery",
+      "y": 270,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_on"
+      }
+    },
+    "facing=east,lit=false": {
+      "model": "melting_point:block/smeltery",
+      "y": 90,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_off"
+      }
+    },
+    "facing=east,lit=true": {
+      "model": "melting_point:block/smeltery",
+      "y": 90,
+      "textures": {
+        "front": "melting_point:block/smeltery_front_on"
+      }
     }
   }
 }

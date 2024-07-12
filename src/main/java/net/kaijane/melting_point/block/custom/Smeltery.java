@@ -1,7 +1,7 @@
 package net.kaijane.melting_point.block.custom;
 
-import net.kaijane.melting_point.block.entity.SmelteryBlockEntity;
 import net.kaijane.melting_point.block.entity.ModBlockEntities;
+import net.kaijane.melting_point.block.entity.SmelteryBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class Smeltery extends BlockWithEntity implements BlockEntityProvider {
-    private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 12, 16);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 16, 16);
 
     public Smeltery(Settings settings) {
         super(settings);
@@ -69,11 +69,7 @@ public class Smeltery extends BlockWithEntity implements BlockEntityProvider {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, ModBlockEntities.SMELTERY_BLOCK_ENTITY,
-                (world1, pos, state1, blockEntity) -> {
-                    if (blockEntity instanceof SmelteryBlockEntity) {
-                        ((SmelteryBlockEntity) blockEntity).tick(world1, pos, state1);
-                    }
-                });
+        return validateTicker(type, ModBlockEntities.SMELTERY_BLOCK_ENTITY,
+                (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
     }
 }
